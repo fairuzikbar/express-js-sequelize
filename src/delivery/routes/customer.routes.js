@@ -5,6 +5,6 @@ module.exports = (customerController) => {
     const { create, list } = customerController();
 
     router.post('/', create);
-    router.post('/', list);
+    router.get('/', list);
     return router;
 }

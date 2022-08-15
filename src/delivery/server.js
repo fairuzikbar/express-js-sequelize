@@ -17,9 +17,10 @@ module.exports = () => {
     const infraManager = () => InfraManager(Config);
     const repoManager = () => RepoManager(infraManager);
     const serviceManager = () => ServiceManager(repoManager);
+    const { initDb } = infraManager()
 
     const initCustomerRoute = () => {
-        const customerController = () => CustomerController(serviceManager().customerService);
+        const customerController = () => CustomerController(serviceManager().customerService()); // kurang () di customerService
 
         return CustomerRoute(customerController);
     }

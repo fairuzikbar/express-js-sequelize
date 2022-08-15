@@ -1,5 +1,5 @@
 module.exports = (customerRepo) => {
-    const { create, list } = customerRepo;
+    const { create, list } = customerRepo();
     const registerNewCustomer = async (payload) => {
         try {
             return await create(payload);
@@ -7,7 +7,7 @@ module.exports = (customerRepo) => {
             console.log(error.message);
         }
     }
-
+    
     const findAllCustomer = async () => {
         try {
             return await list();
