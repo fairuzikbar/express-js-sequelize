@@ -32,7 +32,7 @@ module.exports = () => {
 
     const run = () => {
         initController();
-        DbMigration();
+        DbMigration(initDb());
 
         const server = http.createServer(app);
         server.on('error', (error) => {

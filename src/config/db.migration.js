@@ -1,11 +1,8 @@
-const Config = require('../config/config');
-const { initDb } = require('../manager/infra.manager')(Config);
-const sequelize = initDb();
 const Customer = require("../model/customer")
 
-const DbMigration = async () => {
+const DbMigration = async (db) => {
     //Register your model here
-    await Customer(sequelize).sync();
+    await Customer(db).sync();
 }
 
 module.exports = DbMigration;
