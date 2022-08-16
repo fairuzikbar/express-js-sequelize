@@ -10,16 +10,16 @@ const DbMigration = async (db) => {
     await customer.sync();
     await user.sync();
 
-    await user.create({
-        username: 'jutionck',
-        password: 'password',
-        mstCustomerId: '289955f9-0677-48bd-af77-5a640817e6ce'
-    })
+    // await user.create({
+    //     username: 'jutionck',
+    //     password: 'password',
+    //     mstCustomerId: '289955f9-0677-48bd-af77-5a640817e6ce'
+    // })
 
-    const users = await user.findAll({
-        include: customer
-    })
-    console.log(JSON.stringify(users, null, 2));
+    // const users = await user.findAll({
+    //     include: customer
+    // })
+    // console.log(JSON.stringify(users, null, 2));
 }
 
 module.exports = DbMigration;

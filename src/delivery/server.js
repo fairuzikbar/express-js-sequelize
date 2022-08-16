@@ -11,6 +11,8 @@ const RepoManager = require('../manager/repo.manager');
 const ServiceManager = require('../manager/service.manager');
 const CustomerController = require('../delivery/controller/customer.controller');
 const CustomerRoute = require('./routes/customer.routes');
+const UserController = require('../delivery/controller/user.controller');
+const UserRoute = require('./routes/user.routes');
 
 module.exports = () => {
     const { host, port } = Config();
@@ -25,9 +27,15 @@ module.exports = () => {
         return CustomerRoute(customerController);
     }
 
+    const initUserRoute = () => {
+        const userController = () => UserController(serviceManager().userService());
+
+        return UserRoute(userController);
+    }
+
     const initController = () => {
         app.use(jsonMiddleware);
-        app.use(AppRoute(initCustomerRoute()));
+        app.use(AppRoute(initCustomerRoute(), initUserRoute()));
     }
 
     const run = () => {

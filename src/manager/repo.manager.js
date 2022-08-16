@@ -1,4 +1,5 @@
 const CustomerRepository = require('../repository/customer.repository');
+const UserRepository = require('../repository/user.repository');
 
 module.exports = (infraManager) => {
     const { initDb } = infraManager();
@@ -8,7 +9,11 @@ module.exports = (infraManager) => {
     const customerRepo = () => {
         return () => CustomerRepository(db);
     }
+
+    const userRepo = () => {
+        return () => UserRepository(db);
+    }
     return {
-        customerRepo
+        customerRepo, userRepo
     }
 }
