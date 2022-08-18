@@ -1,25 +1,22 @@
 const Customer = require("../model/customer");
 const User = require("../model/user");
+const Address = require('../model/address');
+const Product = require('../model/product');
 
 const DbMigration = async (db) => {
     const customer = Customer(db);
     const user = User(db);
+    const address = Address(db);
+    const product = Product(db);
     //Register your model here
-    await customer.hasOne(user);
-    await user.belongsTo(customer);
-    await customer.sync();
-    await user.sync();
+    customer.hasOne(user);
+    user.belongsTo(customer);
+    customer.hasMany(address);
+    address.belongsTo(customer)
+    customer.belongsToMany(product, {through: 'r_product_customer'});
+    product.belongsToMany(customer, {through: 'r_product_customer'});
 
-    // await user.create({
-    //     username: 'jutionck',
-    //     password: 'password',
-    //     mstCustomerId: '289955f9-0677-48bd-af77-5a640817e6ce'
-    // })
-
-    // const users = await user.findAll({
-    //     include: customer
-    // })
-    // console.log(JSON.stringify(users, null, 2));
+    await db.sync();
 }
 
 module.exports = DbMigration;
